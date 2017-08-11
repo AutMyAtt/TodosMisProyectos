@@ -1,0 +1,404 @@
+Instructor: Eduardo Castillo Mendoza
+Clave curso: 170807 D84838 WTC
+
+Id clase: 5277646
+https://goo.gl/da1snQ
+
+JDK - para desarrollar aplicaciones
+JRE - para ejecutar aplicaciones java
+
+Leer de:
+	Java Cloud
+	Java IoT
+
+Creacion de proyectos:
+	Ant
+	Maven
+	Grade (Android)
+
+
+--------			--------			--------			--------
+|      |			|      |			|      |			|      |
+|      |	-->		|      |	-->		|      |	-->		|      |
+|      |			|      |			|      |			|      |
+--------			--------			--------			--------
+Creacion			Versionamiento:		SonarQube:			JenKins:
+de proyectos:			svm					Buenas practicas	Evita que se suba
+	Ant					git: GitHub			Sintaxix			un código que truena
+	Maven									Comentarios			JUnits
+	Grade (Android)							Observaciones		TDD
+											Open Source
+											Recomendaciones
+
+Maven:
+	***** Es recomendable para crear proyectos desde 0, que sean independientes de la plataforma *****
+	Agrega dependencias para el proyecto:
+	https://mvnrepository.com
+		Busca la dependencia que necesitas, version etc y agregar a pom.xml
+
+Git:
+	https://git-scm.com/	(versiones)	Instala los comandos en Windows (ejecuta gitbash)
+	https://github.com/		Crea el repositorio para almacenar los proyectos
+	https://bitbucket.org/	(con Metodología SCRUM)
+	Atlassian jiran 		(con Metodología SCRUM)
+
+Mi cuenta en GitHub:
+	a.ulloa0013@gmail.com
+	AutMyAtt
+	Normal pass
+
+
+Para subir mi proyecto a GitHub:
+	Abrir: Git Bash
+	cd Ruta_Proyecto
+		# Se ven los comandos en git hub
+		git init 	# crea el dir oculto .git/, que es el que vincula a git
+		git add . 	#Agrega el directorio local
+		git config --global user.email "a.ulloa0013@gmail.com"
+		git config --global user.name "AutMyAtt"
+		git commit -m "Mi primer commit"	# -m es para agregar el comentario
+		git remote add origin https://github.com/AutMyAtt/InventarioMaven.git
+		git push -u origin master	# Ingresar login de GitHub
+
+	En Settings, colaboradores, pueden agregarse a otras personas para que vean mi código
+
+
+
+Estructura de una clase:
+	package
+	import public class{
+		variables
+		constructor
+		otros metodos
+	}
+
+Nomenclatura del paquete:
+	com.att.atencionaclientes.bean
+
+
+********************************************************************************************************************
+Dia 2:
+Para utilizar la BD de Java que tiene Glassfish (solo si la manipulación de datos es poca)
+	En el menu de la izq -> servicios -> Databases -> Java DB
+		Propiedades -> colocar la ruta de instalacion de la BD de Glassfish: C:\Program Files\glassfish-4.1.1\javadb
+
+Diseño de arquitectura de BD:
+	Modelo MVC:
+
+--------			--------									--------			--------
+|      |			|      |									|      |			|      |
+|      |	-->		|      |	-->								|      |			|      |
+|      |			|      |									|      |			|      |
+--------			--------									--------			--------
+Vista:				Controlador:								POJO				DAO 					
+	Interfaz			Hacia donde van los datos de la Vista 		Objeto plano		Data access object
+	html																				Hacen Operaciones a la BD
+	xml
+	css
+	Sin código
+
+								  ------------	Expuesto como web service.
+								  |	Servicio |	Puede acceder a los DAO desde
+								  ------------	el controlador
+
+															Ya con esto, te puedes conectar con:
+																						JDBC
+																						Hibernate: Los objetos se referencían a tablas de BD
+																							Al manipularlos, se inserta, update, lee, delete.
+																							Open source.
+																						JPA: Como hibernate, pero con estándares de Oracle.
+
+
+New Project -> Maven -> Web Application
+Clic derecho al proyecto -> propiedades -> framework -> agregar JavaServerFaces -> Componentes -> PrimeFaces.
+	Validar en el pom.xml que se haya agregado la dependencia de PrimeFaces.
+		PrimeFaces es la interfaz de la página. Es la parte de la Vista en el MVC
+	Así se pueden agregar las dependencias de algunos Frameworks al pom.xml
+
+Ejercicio del día:
+	Clase Doctor		service			DAO
+		codigo
+		nombre
+		apellido
+		especialidad
+
+**Maven_Web_Sistema_Consultas
+	* Los getters y setters se pueden hacer con generar código automáticamente
+	* Crear la BD:
+		root/root
+		Clic derecho: conectar. Se ve la ip, puerto y ya conectado
+		Se pueden crear tablas gráficamente.
+		Si te conectas a una BD implementada, aparecerán los objetos
+
+	Crear el paquete dao
+		Ponerle la clase Dao
+			Aquí va la conexión a la BD
+			Me falló porque en pom.xml faltaba:
+				<dependency>
+            		<groupId>org.apache.derby</groupId>
+            		<artifactId>derbyclient</artifactId>
+            		<version>10.13.1.1</version>
+        		</dependency>
+        	que copié de: https://mvnrepository.com/artifact/org.apache.derby/derbyclient/10.13.1.1
+
+        Crear la interfaz DoctorDAO, en el paquete dao.
+        	Sólo los métodos para consultar a BD
+        	Se agregan todos los que el negocio necesite
+
+        Crear la clase DoctorDAOImpl, en el paquete dao.
+        	Es la implementación de DoctorDAO
+
+
+        ***** JUnits. Se debe poder probar, si no se puede, algo está mal. Leer metodología TDD
+        Para probar, agregar a Test Packages el paquete com.oracle.consulta.dao
+        	Crearle DoctorDaoTest, como JUnit Test
+        	Clic derecho al archivo, Test File
+        		Validar que se haya insertado el registro
+
+    *** Un metodo privado sólo puede ser accedido sólo desde su clase. Esto es encapsulación de métodos.
+
+    	Borrar todos, solo quedarnos con index.xhtml
+
+    	Crear el paquete Controller
+    		Agregarle la clase DoctorBean
+
+
+
+
+
+
+********************************************************************************************************************
+Dia 3:
+	**En el paquete utils, poner las variables y métodos estáticos, para accederlos desde otras clases sin instanciar objetos.
+	**Se puede utilizar commons.apache.org en nuestro proyecto, como utilerias para casos comunes.
+	**Un main en una clase puede llamar a otro main de otra.
+
+	En cmd, jvisualvm
+		Ayuda a medir el rendimiento de las aplicaciones java.
+		Se encuentra dentro del jdk, dentro de bin/
+		ETL = Extract, Transform and Load
+
+	El concatenar cadenas, genera diferentes espacios de memoria.
+		Esto genera mucha memoria, por lo que se recomienda utilizar StringBuilder.
+
+
+	Final:
+		Una clase final no se puede heredar (es inmutable) (no se le puede hacer extends).
+		Un método final no puede ser sobreescrito en una clase hija (no se le puede hacer @override).
+		Una variable final no puede ser modificada.
+			public static final int CONSTANTE = 1;
+
+
+	Clases abstractas:
+		Contiene métodos que aún no se sabe qué van a hacer, o que su implementación está en sus clases hijo.
+		Una clase abstracta debe tener al menos un metodo abstracto
+
+
+	Herencia
+		Estas dos preguntas aplican para saber si se puede heredar (ejemplo Television.java de com.netec.abstractTest):
+			is a - Lavadora es un electrodomestico?
+			has a - Una tele tiene un control remoto?
+
+	** Libro: Patrones de diseño. El polimorfismo y clases abstractas son parte esencial del polimorfismo.
+
+	Enum:
+		Catalogo de constantes.
+		Revisar com.netec.pedidos
+
+	interface:
+		Acepta sólo abstractos, por lo que no es necesario indicarlo.
+		La clase que implementa es claseImpl.java
+			aquí deben ir implementados todos los metodos de la interfaz.
+			clic derecho -> insert code -> implement method
+
+
+
+********************************************************************************************************************
+Dia 4:
+	**Gluon (New Proyect -> Gluon) sirve para escribir código en Java y generar aplicaciones para Android y iPhone. gluonhq.com
+
+	Excepciones:
+		Hay que entender el árbol de herencia
+
+		-------------
+		| Throwable |--------------------------------------------------------------------
+		-------------																	|
+			|																			|
+		Error: La aplicación se muere												Exception: ( Exception e )
+		(se acabó un recurso: procesador,												|
+		RAM). No es recomendable recuperarlo.				-------------------------------------------------
+															|												|
+														otras Excepciones 								Runtime exceptions:	( ej. ArithmeticException e )
+
+																										No son controladas por nosotros. Se originan
+														check					uncheck					por un mal código (ej. mal casting, acceder a
+														file("ruta")			div 0, indice fuera		un índice que no existe).
+														Si no es la ruta
+														correcta (try-catch,
+														throw).
+
+		Ejemplo de la herencia de Excepciones.
+		Se debe poner primero las de menor gerarquía ( Clase_4.java )
+			https://docs.oracle.com/javase/7/docs/api/java/lang/ArrayIndexOutOfBoundsException.html
+
+		Service.java:
+			al método al ponerle throws Exception, significa que le va a regresar al método que lo llama la "responsabilidad" de manejar la excepción.
+			Ej:
+				java.lang.Exception: java.lang.Exception: La url es incorrecta
+					at dao.AccesoDao.conectarBase(AccesoDao.java:13)
+					at service.Service.conectarOracle(Service.java:19)
+					at service.Service.main(Service.java:10)
+				Caused by: java.lang.Exception: La url es incorrecta
+					at dao.AccesoDao.conectarBase(AccesoDao.java:11)
+
+			Habría que ver en el log de abajo hacia arriba.
+				Service:10 llamó a Service:19
+				Service:19 llamó a AccesoDao:13 <-- aquí tronó, y regresó la ejecución al método que lo llamó
+
+
+		Ejemplo throw y throws
+			public void conectarBase() throws Exception{
+		        
+		        try{
+		            System.out.println( "Intentando conectarme" );
+		            throw new Exception( "La url es incorrecta" ); // Simulando la excepcion
+		        } catch( Exception e ){
+		            throw new Exception( e );
+		        }
+		    }
+
+
+		
+
+		** Ecobertura: Plugin que deja ver cuanto codigo que tienes no se está utilizando (código basura)
+
+
+		Crear excepciones propias:
+			Paquete: personalException
+				clic derecho, insert code, constructor
+
+
+	Asersiones:
+		La forma de validar que las pruebas funcionan. JUnit
+		Ver en el proyecto de Clase_3, porque tiene Maven
+		al pom.xml, agregar:
+			<!-- https://mvnrepository.com/artifact/junit/junit -->
+	        <dependency>
+	            <groupId>junit</groupId>
+	            <artifactId>junit</artifactId>
+	            <version>4.12</version>
+	            <scope>test</scope>
+	        </dependency>
+	
+
+		** Instalar plugin de Netbeans:
+			tools -> plugins -> available plugins -> tikione
+			Sobre proyecto sin Maven, clic derecho -> Run with Jacocoverage (te dice cuánto en realidad de tu código estás ejecutando).
+
+
+
+
+	Colecciones:
+										Iterable
+											|
+										Collection
+											|
+	  -----------------------------------------------------------------------									(a parte)
+	  |										|								|
+	List								Queu								Set (no duplicados)					Map						
+	ArrayList							PriorityQeue						HashSet								HashMap<llave, valor>
+	LinkedList																TreeSet
+
+
+
+
+	***** Es mucho más recomendable utilizar StringBuilder que String
+
+
+
+
+
+
+
+********************************************************************************************************************
+Dia 5:
+	Archivos:
+		ApacheCamel es un framework que permite facilmente la manipulación de muchos archivos
+			Basado en Patrones de Integración
+			Ques de mensajería
+		AoacheKafka
+			Se utiliza para ETLs de a verdad.
+
+
+	Serializacion
+		Envía los datos hacia algún lugar, pero no como objetos, sino 0s y 1s
+		Al llegar al destino se puede recuperar la info.
+		Se necesita un valor para reconocerlo serialVersionUID.
+		Se utiliza en varios Frameworks
+
+
+
+	Programacion funcional
+		Como SQL, el select campos from.
+		En java, le dices que quieres algo y no es transparente cómo lo hace java.
+
+
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Links de los libros:
+	http://goo.gl/YhmuZP
+	https://goo.gl/jrJUCi
+
+De un jar se puede obtener el fuente.
+	http://jd.benow.ca/
+
+
+

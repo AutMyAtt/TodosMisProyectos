@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MiExcepcion.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Clase_4&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">personalException</a> &gt; <span class="el_source">MiExcepcion.java</span></div><h1>MiExcepcion.java</h1><pre class="source lang-java linenums">package personalException;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class MiExcepcion extends Exception {
+
+    private int code;
+    private String descripcion;
+    private Date date;
+
+    public int getCode() {
+<span class="nc" id="L14">        return code;</span>
+    }
+
+    public void setCode(int code) {
+<span class="nc" id="L18">        this.code = code;</span>
+<span class="nc" id="L19">    }</span>
+
+    public String getDescripcion() {
+<span class="nc" id="L22">        return descripcion;</span>
+    }
+
+    public void setDescripcion(String descripcion) {
+<span class="nc" id="L26">        this.descripcion = descripcion;</span>
+<span class="nc" id="L27">    }</span>
+
+    public String getDate() {
+<span class="nc" id="L30">        DateFormat fecha = new SimpleDateFormat( &quot;yyyy-MM-dd HH:mm:ss&quot; );</span>
+<span class="nc" id="L31">        return fecha.format( date );</span>
+    }
+
+    public void setDate(Date date) {
+<span class="nc" id="L35">        this.date = date;</span>
+<span class="nc" id="L36">    }</span>
+    
+    // Sobrecargar metodo a mi medida}
+    public MiExcepcion( int code, String descripcion, Date date, String mensaje ){
+<span class="nc" id="L40">        super( mensaje );   // LLamar al contructor de la clase Exception</span>
+                            // Debe ser la primer línea del método
+<span class="nc" id="L42">        this.code = code;</span>
+<span class="nc" id="L43">        this.descripcion = descripcion;</span>
+<span class="nc" id="L44">        this.date = date;</span>
+        
+<span class="nc" id="L46">        System.out.println(&quot;Error code: &quot; + code);</span>
+<span class="nc" id="L47">        System.out.println(&quot;Error desc: &quot; + descripcion);</span>
+<span class="nc" id="L48">        System.out.println(&quot;Error date: &quot; + date);</span>
+<span class="nc" id="L49">    }</span>
+    
+<span class="nc" id="L51">    public MiExcepcion() {</span>
+<span class="nc" id="L52">    }</span>
+
+    public MiExcepcion(String message) {
+<span class="nc" id="L55">        super(message);</span>
+<span class="nc" id="L56">    }</span>
+
+    public MiExcepcion(String message, Throwable cause) {
+<span class="nc" id="L59">        super(message, cause);</span>
+<span class="nc" id="L60">    }</span>
+
+    public MiExcepcion(Throwable cause) {
+<span class="nc" id="L63">        super(cause);</span>
+<span class="nc" id="L64">    }</span>
+
+    public MiExcepcion(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+<span class="nc" id="L67">        super(message, cause, enableSuppression, writableStackTrace);</span>
+<span class="nc" id="L68">    }</span>
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

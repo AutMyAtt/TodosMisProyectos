@@ -1,0 +1,5 @@
+com\oracle\consultas\dao\DoctorDaoImpl.class
+com\oracle\consultas\model\Doctor.class
+com\oracle\consultas\dao\Dao.class
+com\oracle\consultas\dao\DoctorDao.class
+com\oracle\consultas\controller\DoctorBean.class
